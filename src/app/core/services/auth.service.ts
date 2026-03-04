@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { ApiService } from './api';
+import { ApiService } from './api.service';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { AuthResponse, LoginCredentials, User } from '../models/auth.model';

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { LoggerService } from './logger';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
