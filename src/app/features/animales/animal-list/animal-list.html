@@ -1,0 +1,33 @@
+<div class="list-container">
+  <header class="list-header">
+    <h2>Catálogo de Animales</h2>
+    <a *ngIf="authService.currentUser()?.role === 'empresario'"
+       routerLink="/animales/nuevo"
+       class="btn btn-primary">
+       + Nuevo Animal
+    </a>
+  </header>
+
+  <div class="alert alert-danger" *ngIf="errorMessage()">
+    {{ errorMessage() }}
+  </div>
+
+  <div class="loading" *ngIf="isLoading()">Cargando datos...</div>
+
+  <div class="grid-cards" *ngIf="!isLoading()">
+    <div class="card" *ngFor="let animal of animales()">
+      <h3>{{ animal.nombre }}</h3>
+      <p class="badge">{{ animal.especie }}</p>
+      <p *ngIf="animal.edad"><strong>Edad:</strong> {{ animal.edad }} años</p>
+
+      <div class="card-actions" *ngIf="authService.currentUser()?.role === 'empresario'">
+        <a [routerLink]="['/animales/editar', animal.id]" class="btn btn-secondary">Editar</a>
+        <button (click)="eliminarAnimal(animal.id)" class="btn btn-danger">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading() && animales().length === 0" class="empty-state">
+    No hay animales registrados aún.
+  </div>
+</div>

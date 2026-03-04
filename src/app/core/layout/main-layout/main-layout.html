@@ -1,0 +1,14 @@
+<nav class="topbar" *ngIf="authService.currentUser() as user">
+  <div class="brand">
+    <strong>Turismo MVP</strong> | Panel de Administración
+  </div>
+  <div class="user-info">
+    <span class="user-email">{{ user.email }}</span>
+    <span class="role-badge">{{ user.role }}</span>
+    <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
+  </div>
+</nav>
+
+<main class="layout-content">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,36 @@
+<div class="form-container">
+  <div class="card form-card">
+    <h2>{{ isEditMode() ? 'Editar Animal' : 'Nuevo Animal' }}</h2>
+
+    <div class="alert alert-danger" *ngIf="errorMessage()">
+      {{ errorMessage() }}
+    </div>
+
+    <form [formGroup]="animalForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre" class="form-control">
+        <div class="error-text" *ngIf="animalForm.get('nombre')?.invalid && animalForm.get('nombre')?.touched">El nombre es obligatorio.</div>
+      </div>
+
+      <div class="form-group">
+        <label>Especie</label>
+        <input type="text" formControlName="especie" class="form-control" placeholder="Ej. Perro, Vaca, Caballo">
+        <div class="error-text" *ngIf="animalForm.get('especie')?.invalid && animalForm.get('especie')?.touched">La especie es obligatoria.</div>
+      </div>
+
+      <div class="form-group">
+        <label>Edad</label>
+        <input type="number" formControlName="edad" class="form-control">
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/animales" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading() || animalForm.invalid">
+          {{ isLoading() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

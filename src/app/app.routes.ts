@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth-guard'; // <-- IMPORTAMOS EL GUARD
+import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
 
 export const routes: Routes = [
@@ -7,37 +7,35 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent)
   },
-  {
-    path: 'dashboard',
-    // Protegemos esta ruta y todas sus sub-rutas ("hijos") con el Guard
-    canActivate: [authGuard],
-    loadComponent: () => import('./features/dashboard/dashboard').then(m => m.DashboardComponent)
-  },
 
-// ZONA EXCLUSIVA EMPRESARIOS
-  {
-    path: 'admin-ofertas',
-    canActivate: [authGuard, roleGuard],
-    data: { expectedRole: 'empresario' }, // rol requerido
-    loadComponent: () => import('./features/admin-ofertas/admin-ofertas').then(m => m.AdminOfertas)
-  },
-
-  // ZONA EXCLUSIVA TURISTAS
-  {
-    path: 'mis-puntos',
-    canActivate: [authGuard, roleGuard],
-    data: { expectedRole: 'turista' }, // rol requerido
-    loadComponent: () => import('./features/mis-puntos/mis-puntos').then(m => m.MisPuntos)
-  },
-
+  // ZONA PRIVADA (Envuelve todo lo que requiere sesión)
   {
     path: '',
-    redirectTo: 'dashboard', // Ahora por defecto intentamos ir al dashboard
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: 'login'
-  }
+    canActivate: [authGuard], // El guard se aplica al layout, protegiendo todo lo de adentro
+    loadComponent: () => import('./core/layout/main-layout/main-layout').then(m => m.MainLayoutComponent),
+    children: [
+      {
+        path: 'animales',
+        loadComponent: () => import('./features/animales/animal-list/animal-list').then(m => m.AnimalListComponent)
+      },
+      {
+        path: 'animales/nuevo',
+        canActivate: [roleGuard], // Este guard extra solo aplica a esta ruta específica
+        data: { expectedRole: 'empresario' },
+        loadComponent: () => import('./features/animales/animal-form/animal-form').then(m => m.AnimalFormComponent)
+      },
+      {
+        path: 'animales/editar/:id',
+        canActivate: [roleGuard],
+        data: { expectedRole: 'empresario' },
+        loadComponent: () => import('./features/animales/animal-form/animal-form').then(m => m.AnimalFormComponent)
+      },
+      // Si mañana agregas otro mantenedor, solo lo agregas aquí:
+      // { path: 'usuarios', loadComponent: ... }
 
+      { path: '', redirectTo: 'animales', pathMatch: 'full' }
+    ]
+  },
+
+  { path: '**', redirectTo: 'login' }
 ];

@@ -1,0 +1,123 @@
+/* CENTRAMOS LA TARJETA EN LA PANTALLA */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Para que no se pegue arriba del todo */
+  padding-top: 2rem;
+}
+
+/* LA TARJETA BLANCA */
+.form-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 550px;
+}
+
+.form-card h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #f0f2f5;
+  padding-bottom: 1rem;
+}
+
+/* GRUPOS DE CAMPOS (LABEL + INPUT) */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+/* LOS CAMPOS DE TEXTO */
+.form-control {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #334155;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* TEXTOS DE ERROR Y ALERTAS */
+.error-text {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  font-weight: 500;
+}
+
+.alert-danger {
+  background-color: #fdf2f2;
+  color: #c53030;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #e53e3e;
+  font-weight: 500;
+}
+
+/* ZONA DE BOTONES AL FINAL DEL FORMULARIO */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.btn {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  flex: 1; /* Hace que ambos botones midan lo mismo */
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+.btn-secondary {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #7f8c8d;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

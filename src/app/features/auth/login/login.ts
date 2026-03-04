@@ -43,7 +43,7 @@ export class LoginComponent {
       next: () => {
         // Éxito: El token ya se guardó en el AuthService. Solo nos queda navegar.
         this.isLoading.set(false);
-        this.router.navigate(['/dashboard']); // Ajustaremos esta ruta después
+        this.router.navigate(['/animales']); // Ajustaremos esta ruta después
       },
       error: (err: Error) => {
         // Fallo: Aquí termina el viaje del error que dejó pasar el AuthService
