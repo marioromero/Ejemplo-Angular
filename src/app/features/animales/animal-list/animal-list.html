@@ -4,7 +4,7 @@
     <a *ngIf="authService.currentUser()?.role === 'empresario'"
        routerLink="/animales/nuevo"
        class="btn btn-primary">
-       + Nuevo Animal
+      + Nuevo Animal
     </a>
   </header>
 
@@ -12,7 +12,7 @@
     {{ errorMessage() }}
   </div>
 
-  <div class="loading" *ngIf="isLoading()">Cargando datos...</div>
+  <app-spinner *ngIf="isLoading()"></app-spinner>
 
   <div class="grid-cards" *ngIf="!isLoading()">
     <div class="card" *ngFor="let animal of animales()">

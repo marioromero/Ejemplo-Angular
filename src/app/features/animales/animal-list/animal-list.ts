@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { AnimalService } from '../services/animal';
 import { AuthService } from '../../../core/services/auth.service';
 import { Animal } from '../models/animal';
+import { Spinner } from '../../../shared/components/spinner/spinner';
 
 @Component({
   selector: 'app-animal-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, Spinner],
   templateUrl: './animal-list.html',
   styleUrls: ['./animal-list.css']
 })
