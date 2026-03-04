@@ -1,0 +1,18 @@
+<div class="dashboard-container" *ngIf="authService.currentUser() as user">
+  <nav class="topbar">
+    <h1>Turismo MVP - Panel Principal</h1>
+    <div class="user-info">
+      <span>Hola, {{ user.email }}</span>
+      <span class="role-badge" *ngIf="user.role">({{ user.role }})</span>
+      <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
+    </div>
+  </nav>
+
+  <main class="content">
+    <div class="card welcome-card">
+      <h2>¡Inicio de sesión exitoso!</h2>
+      <p>Has superado el sistema de seguridad y tienes un Bearer Token válido.</p>
+      <p>Tu ID de usuario es: <code>{{ user.id }}</code></p>
+    </div>
+  </main>
+</div>

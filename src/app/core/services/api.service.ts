@@ -52,12 +52,12 @@ get<T>(path: string, params: HttpParams = new HttpParams()): Observable<T> {
     );
   }
 
-// Ahora el manejador recibe la ruta para dar un log mucho más exacto
-  private formatErrors = (error: any, path: string) => {
-    // 1. Lo registramos centralizadamente
-    this.logger.error(`Falló la petición HTTP a ${path}`, error);
+private formatErrors = (err: any, path: string) => {
+    this.logger.error(`Falló la petición HTTP a ${path}`, err);
 
-    // 2. Le devolvemos un error limpio al componente para que muestre un mensaje en la UI
-    return throwError(() => new Error(error?.error?.message || 'Error de conexión con el servidor'));
+    // Extraemos el mensaje dependiendo de cómo lo envíe el backend
+    const apiMessage = err?.error?.error_description || err?.error?.message || err?.error?.msg;
+
+    return throwError(() => new Error(apiMessage || 'Error de conexión con el servidor'));
   }
 }

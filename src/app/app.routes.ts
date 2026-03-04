@@ -1,18 +1,24 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth-guard'; // <-- IMPORTAMOS EL GUARD
 
 export const routes: Routes = [
   {
     path: 'login',
-    // Usamos Lazy Loading. Esto hace que Angular solo descargue el código del Login cuando el usuario visite esta URL.
     loadComponent: () => import('./features/auth/login/login').then(m => m.LoginComponent)
   },
   {
+    path: 'dashboard',
+    // Protegemos esta ruta y todas sus sub-rutas ("hijos") con el Guard
+    canActivate: [authGuard],
+    loadComponent: () => import('./features/dashboard/dashboard').then(m => m.DashboardComponent)
+  },
+  {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard', // Ahora por defecto intentamos ir al dashboard
     pathMatch: 'full'
   },
   {
-    path: '**', // Si escriben una URL que no existe, los mandamos al login
+    path: '**',
     redirectTo: 'login'
   }
 ];
