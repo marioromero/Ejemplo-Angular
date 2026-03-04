@@ -1,8 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { ApiService } from './api.service';
-import { tap, catchError } from 'rxjs/operators';
-import { Observable, throwError } from 'rxjs';
-import { AuthResponse, LoginCredentials, User } from '../models/auth.model';
+import {Injectable, inject, signal} from '@angular/core';
+import {ApiService} from './api.service';
+import {tap, catchError} from 'rxjs/operators';
+import {Observable, throwError} from 'rxjs';
+import {AuthResponse, LoginCredentials, User} from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,11 +50,19 @@ export class AuthService {
     this.currentUser.set(null);
   }
 
-  private setSession(authResult: AuthResponse): void {
+  private setSession(authResult: any): void {
     localStorage.setItem('access_token', authResult.access_token);
     localStorage.setItem('refresh_token', authResult.refresh_token);
-    localStorage.setItem('user_data', JSON.stringify(authResult.user));
-    this.currentUser.set(authResult.user);
+
+    // Mapeamos la respuesta del server a nuestra Interfaz estricta
+    const mappedUser: User = {
+      id: authResult.user.id,
+      email: authResult.user.email,
+      role: authResult.user.user_metadata?.role // <-- Aquí extraemos el rol
+    };
+
+    localStorage.setItem('user_data', JSON.stringify(mappedUser));
+    this.currentUser.set(mappedUser);
   }
 
   private checkInitialAuth(): void {
